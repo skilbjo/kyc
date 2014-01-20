@@ -14,13 +14,16 @@ module.exports = function(app, passport) {
 	// =====================================
 	// show the login form
 	app.get('/login', function(req, res) {
-
 		// render the page and pass in any flash data if it exists
 		res.render('login.ejs', { message: req.flash('loginMessage') }); 
 	});
 
 	// process the login form
-	// app.post('/login', do all our passport stuff here);
+	app.post('/login', passport.authenticate('local-login', {
+		successRedirect : '/profile', // redirect to the profile
+		failureRedirect : '/login',   // redirect to the signup page
+		failureFlash 	: true // allow flash messages
+	}));
 
 	// =====================================
 	// SIGNUP ==============================
@@ -33,7 +36,11 @@ module.exports = function(app, passport) {
 	});
 
 	// process the signup form
-	// app.post('/signup', do all our passport stuff here);
+	app.post('/signup', passport.authenticate('local-signup', {
+		successRedirect : '/profile', // redirect to secure profile section
+		failureRedirect : '/signup', // redirect back to the signup page if there is an error authenticating
+		failureFlash 	: true // allow flash messages
+	}));
 
 	// =====================================
 	// PROFILE SECTION =====================
