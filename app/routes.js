@@ -10,6 +10,13 @@ module.exports = function(app, passport) {
 	});
 
 	// =====================================
+	// MAPS (with login links) ========
+	// =====================================
+	app.get('/maps', function(req, res) {
+		res.render('googlemaps.ejs'); // load the googlemaps.ejs file
+	});
+
+	// =====================================
 	// LOGIN ===============================
 	// =====================================
 	// show the login form
