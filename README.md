@@ -1,5 +1,4 @@
 ##passport
-========
 
 ###What
 
@@ -33,9 +32,34 @@ Add secret API keys from the super secret email
 	
 	$ vim config/auth.js
 	
-Configure the database
+Configure the database (assuming `mongo` is running at )
 
 	$ mongo
+	> db.serverCmdLineOpts()
+
+You should get this back:
+	{
+	"argv" : [
+		"/usr/local/Cellar/mongodb/2.4.9/mongod",
+		"-f",
+		"/etc/mongodb.conf"
+	],
+	"parsed" : {
+		"config" : "/etc/mongodb.conf",
+		"dbpath" : "/data/db",
+		"fork" : "true",
+		"journal" : "true",
+		"logappend" : "true",
+		"logpath" : "/data/log/mongod.log",
+		"port" : 27017,
+		"quiet" : "true"
+	},
+	"ok" : 1
+	}
+
+and
+	> db.getParameter
+	passport.getParameter
 	
 Run the app
 
