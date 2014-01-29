@@ -26,7 +26,9 @@ app.configure(function() {
 	app.use(express.urlencoded()); // get information from html forms
 	app.use(express.json());
 
-	app.set('view engine', 'ejs'); // set up ejs for templating
+	// app.engine('handlebars', hbs.engine); delete this if line below works
+	app.set('view engine', 'hbs');
+	app.set('views', __dirname + '/app/views');
 
 	// required for passport
 	app.use(express.session({ secret: 'ilovescotch' })); // session secret

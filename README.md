@@ -2,7 +2,7 @@
 
 ###What
 
-passport is an app that experiments with using the Javascript language for the entire stack. From the Mongo database, to server side node.js and Express, to client side jQuery and Angular, everything will be written using the Javascript programming languages.
+passport is an app that experiments with using the Javascript language for the entire stack. From the `mongo` database and `mongoose` ORM, to server side `node.js` and the `express` framework, and the `handlebars.js` templating engine, to client side `jQuery` and `Angular`, everything will be written using the Javascript programming language.
 
 This app experiments with OAuth (signin with Twitter!) and creating reviews of locations using the Google Maps API.
 
