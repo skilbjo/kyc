@@ -1,7 +1,5 @@
 // server.js
 
-// server.js
-
 // set up ======================================================================
 // get all the tools we need
 var express  = require('express');
@@ -10,13 +8,10 @@ var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash 	 = require('connect-flash');
-
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
-
-// require('./config/passport')(passport); // pass passport for configuration
 
 app.configure(function() {
 
@@ -26,7 +21,6 @@ app.configure(function() {
 	app.use(express.urlencoded()); // get information from html forms
 	app.use(express.json());
 
-	// app.engine('handlebars', hbs.engine); delete this if line below works
 	app.set('view engine', 'hbs');
 	app.set('views', __dirname + '/app/views');
 
