@@ -19,6 +19,24 @@
 
 	<div class="row">
 
+	<!-- ADMIN INFORMATION -->
+		{{#if user.admin.isadmin }}
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-user"></span> Admin</h3>
+
+				
+					<p>
+						<strong>isadmin</strong>: {{ user.admin.isadmin }}<br>
+						<strong>registered users</strong>: list of registered users here !!<br>
+					</p>
+					
+				
+
+			</div>
+		</div>
+		{{/if}}
+
 		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-6">
 			<div class="well">
