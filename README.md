@@ -39,24 +39,24 @@ Configure the database (assuming `mongo` is running at )
 
 You should get this back:
 ```
-	{
-	"argv" : [
-		"/usr/local/Cellar/mongodb/2.4.9/mongod",
-		"-f",
-		"/etc/mongodb.conf"
-	],
-	"parsed" : {
-		"config" : "/etc/mongodb.conf",
-		"dbpath" : "/data/db",
-		"fork" : "true",
-		"journal" : "true",
-		"logappend" : "true",
-		"logpath" : "/data/log/mongod.log",
-		"port" : 27017,
-		"quiet" : "true"
-	},
-	"ok" : 1
-	}
+{
+"argv" : [
+	"/usr/local/Cellar/mongodb/2.4.9/mongod",
+	"-f",
+	"/etc/mongodb.conf"
+],
+"parsed" : {
+	"config" : "/etc/mongodb.conf",
+	"dbpath" : "/data/db",
+	"fork" : "true",
+	"journal" : "true",
+	"logappend" : "true",
+	"logpath" : "/data/log/mongod.log",
+	"port" : 27017,
+	"quiet" : "true"
+},
+"ok" : 1
+}
 ```
 
 and
