@@ -38,6 +38,7 @@ Configure the database (assuming `mongo` is running at )
 	> db.serverCmdLineOpts()
 
 You should get this back:
+```
 	{
 	"argv" : [
 		"/usr/local/Cellar/mongodb/2.4.9/mongod",
@@ -56,6 +57,7 @@ You should get this back:
 	},
 	"ok" : 1
 	}
+```
 
 and
 	> db.getParameter
