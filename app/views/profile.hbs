@@ -20,26 +20,41 @@
 	<div class="row">
 
 	<!-- ADMIN INFORMATION -->
-		{{#if user.admin.isadmin }}
+		{{!#if user.admin.isAdmin.length }} <!-- some reason not working -->
 
-		// loop thru users object
-		// use handlebars loop
-		// use html table
+		<table border="3">
+			<tr>
+				<th>User ID</th>
+				<th>Facebook</th>
+				<th>Twitter</th>
+				<th>Google</th>
+			</tr>
+			{{!#each users}}
+			<tr>
+				<td>{{user._id}}</td>
+				<td>{{#if user.facebook.token }}	 				X 	{{/if}}</td>
+				<td>{{#if user.twitter.token }} 					X 	{{/if}}</td>
+				<td>{{#if user.google.token }} 					X 	{{/if}}</td>
+				<td>{{#if user.admin.isAdmin.length }}	X	{{/if}}</td>
+			</tr>
+			{{!/each}}
+		</table>
+		{{!/if}}
+
+<!-- 		if user.admin.isadmin 
 		<div class="col-sm-6">
 			<div class="well">
 				<h3><span class="fa fa-user"></span> Admin</h3>
-
-				
-					<p>
+				<p>
 						<strong>isadmin</strong>: {{ user.admin.isadmin }}<br>
 						<strong>registered users</strong>: list of registered users here !!<br>
 					</p>
 					
-				
+				 -->
 
 			</div>
 		</div>
-		{{/if}}
+<!-- 		if -->
 
 		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-6">

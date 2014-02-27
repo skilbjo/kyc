@@ -1,3 +1,5 @@
+// users controller
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================

@@ -1,9 +1,6 @@
 // server.js
 
 // set up ======================================================================
-// get all the tools we need
-
-// change the below to this style
 var 
 	express  = require('express'),
 	app      = express(),
@@ -38,8 +35,6 @@ app.configure(function() {
 });
 
 // handlebars stuff ===========================================================
-
-// hbs.handlebars is the handlebars module
 hbs.handlebars === require('handlebars');
 
 // register handlebars helpers =================================================
