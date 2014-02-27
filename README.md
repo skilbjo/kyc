@@ -61,13 +61,13 @@ You should get this back:
 
 and
 ```
-	> db.getParameter
-	passport.getParameter
+> db.getParameter
+passport.getParameter
 ```
 	
 Run the app
 
-	$ node app
+	$ node server.js
 	
 Then view the app your browser:  `http://localhost:8080`
 
