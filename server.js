@@ -4,11 +4,11 @@
 var 
 	express  = require('express'),
 	app      = express(),
-	port     = process.env.PORT || 8080,
 	passport = require('passport'),
 	flash 	 = require('connect-flash'),
 	mongoose = require('mongoose'),
 	hbs  	 = require('hbs'),
+    http     = require('http');
 	configDB = require('./config/database.js');
 
 // configuration ===============================================================
@@ -17,6 +17,7 @@ mongoose.connect(configDB.url); // connect to our database
 app.configure(function() {
 
 	// set up our express application
+    app.set('port', process.env.PORT || 8080);
 	app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	app.use(express.urlencoded()); // get information from html forms
@@ -84,5 +85,15 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 require('./config/passport')(passport); // pass passport for configuration
 
 // launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('The magic happens on port ' + app.get('port'));
+});
+
+// app.listen(port);
+// console.log('The magic happens on port ' + port);
