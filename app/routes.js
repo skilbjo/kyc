@@ -1,6 +1,6 @@
 // app/routes.js
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, models) {
 
 // normal routes ===============================================================
 
@@ -11,9 +11,12 @@ module.exports = function(app, passport) {
 
         // PROFILE SECTION =========================
         app.get('/profile', isLoggedIn, function(req, res) {
-                res.render('profile.hbs', {
-                        user : req.user
-                });
+                models.users.find({}, function(err, users) {
+                   res.render('profile.hbs', {
+                        user            : req.user,
+                        users           : users
+                   });   
+                });   
         });
 
         // LOGOUT ==============================

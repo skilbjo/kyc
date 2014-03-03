@@ -18,6 +18,7 @@ app.configure(function() {
 
 	// set up our express application
     app.set('port', process.env.PORT || 8080);
+    app.use(express.favicon());
 	app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	app.use(express.urlencoded()); // get information from html forms
@@ -81,7 +82,13 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 });
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+var models = {
+    users: require('./app/models/user.js')
+    // business -- add in business path
+    // reviews -- add in reviews path
+};
+
+require('./app/routes.js')(app, passport, models); // load our routes and pass in our app and fully configured passport
 require('./config/passport')(passport); // pass passport for configuration
 
 // launch ======================================================================

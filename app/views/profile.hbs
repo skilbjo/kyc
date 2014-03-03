@@ -19,14 +19,7 @@
 
 	<div class="row">
 
-	<!-- ADMIN INFORMATION -->
-	{{#compare user.admin.isAdmin "==" true  }}
-		IS ADMIN !!!!!!!1111 :)
-	{{else}}
-		not admin :(
-	{{/compare}}
-
-		{{#compare user.admin.isAdmin "==" true }} <!-- some reason not working -->
+		{{#compare user.admin.isAdmin "==" true }} 
 
 			<div class="well">
 				<h3><span class="fa fa-user"></span>Admin</h3>
@@ -39,15 +32,15 @@
 						<th>Google</th>
 						<th>isAdmin</th>
 					</tr>
-					{{!#each users}}
+					{{#each users}}
 					<tr>
-						<td>{{user._id}}</td>
-						<td>{{#if user.facebook.token }}	 	X 	{{/if}}</td>
-						<td>{{#if user.twitter.token }} 		X 	{{/if}}</td>
-						<td>{{#if user.google.token }} 			X 	{{/if}}</td>
-						<td>{{#compare user.admin.isAdmin "==" true }}	X	{{/compare}}</td>
+						<td>{{_id}}</td>
+						<td>{{#if facebook.token }}	 	X 	{{/if}}</td>
+						<td>{{#if twitter.token }} 		X 	{{/if}}</td>
+						<td>{{#if google.token }} 			X 	{{/if}}</td>
+						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
 					</tr>
-					{{!/each}}
+					{{/each}}
 				</table>
 
 			</div>
