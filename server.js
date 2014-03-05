@@ -2,14 +2,14 @@
 
 // set up ======================================================================
 var 
-	express  = require('express'),
-	app      = express(),
-	passport = require('passport'),
-	flash 	 = require('connect-flash'),
-	mongoose = require('mongoose'),
-	hbs  	 = require('hbs'),
-    http     = require('http');
-	configDB = require('./config/database.js');
+    passport = require('passport'),
+    flash    = require('connect-flash'),
+    express  = require('express'),
+    app      = express(),
+    mongoose = require('mongoose'),
+    hbs  	 = require('hbs'),
+    http     = require('http'),
+    configDB = require('./config/database.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
@@ -36,7 +36,9 @@ app.configure(function() {
 
 });
 
-// handlebars stuff ===========================================================
+
+
+// handlebars stuff ============================================================
 hbs.handlebars === require('handlebars');
 
 // register handlebars helpers =================================================
@@ -56,14 +58,14 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     }
     
     operators = {
-        '==': function (l, r) { return l == r; },
-        '===': function (l, r) { return l === r; },
-        '!=': function (l, r) { return l != r; },
-        '!==': function (l, r) { return l !== r; },
-        '<': function (l, r) { return l < r; },
-        '>': function (l, r) { return l > r; },
-        '<=': function (l, r) { return l <= r; },
-        '>=': function (l, r) { return l >= r; },
+        '=='    : function (l, r) { return l == r; },
+        '==='   : function (l, r) { return l === r; },
+        '!='    : function (l, r) { return l != r; },
+        '!=='   : function (l, r) { return l !== r; },
+        '<'     : function (l, r) { return l < r; },
+        '>'     : function (l, r) { return l > r; },
+        '<='    : function (l, r) { return l <= r; },
+        '>='    : function (l, r) { return l >= r; },
         'typeof': function (l, r) { return typeof l == r; }
     };
     
@@ -82,17 +84,25 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 });
 
 // routes ======================================================================
+// models ============
 var models = {
-    users: require('./app/models/user.js')
-    // business -- add in business path
-    // reviews -- add in reviews path
+    users       : require('./app/models/user.js'),
+    business    : require('./app/models/business.js'),
+    reviews     : require('./app/models/review.js')
 };
 
-require('./app/routes.js')(app, passport, models); // load our routes and pass in our app and fully configured passport
+// controllers ========
+var controllers = {
+    static        : require('./app/controllers/static.js'),
+    users         : require('./app/controllers/users.js'),
+    business      : require('./app/controllers/business.js'),
+    reviews       : require('./app/controllers/review.js')
+};
+
+require('./app/routes.js')(app, passport, models, controllers); // load our routes, models, controllers, and pass in our app and fully configured passport
 require('./config/passport')(passport); // pass passport for configuration
 
 // launch ======================================================================
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -102,5 +112,6 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('The magic happens on port ' + app.get('port'));
 });
 
-// app.listen(port);
-// console.log('The magic happens on port ' + port);
+
+
+

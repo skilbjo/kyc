@@ -37,10 +37,6 @@ var userSchema = mongoose.Schema({
 // add address , phone number; want to be able to edit this
 // should be able to edit this data
 
-// add business model, need name email phone number
-
-// want a review where we add user id, business id, timedate, and string of review
-
 // use a form, jquery post
 // admin can select 1 user and update the data just like the user can update his own data
 // add a review;; user can add a review to a business

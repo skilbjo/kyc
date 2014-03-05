@@ -1,29 +1,25 @@
 // app/routes.js
 
-module.exports = function(app, passport, models) {
+module.exports = function(app, passport, models, controllers) {
 
 // normal routes ===============================================================
 
-        // show the home page (will also have our login links)
-        app.get('/', function(req, res) {
-                res.render('index.hbs');
-        });
+        // HOMEPAGE =====================
+        app.get('/', controllers.static.index);
 
-        // PROFILE SECTION =========================
+        // PROFILE SECTION ==============
+        // app.get('/profile', controllers.users.getProfile); // doesnt work; something about can't find model
         app.get('/profile', isLoggedIn, function(req, res) {
-                models.users.find({}, function(err, users) {
-                   res.render('profile.hbs', {
-                        user            : req.user,
-                        users           : users
-                   });   
-                });   
+          models.users.find({}, function(err, users) {
+             res.render('profile.hbs', {
+                  user            : req.user,
+                  users           : users
+             });   
+          });
         });
 
-        // LOGOUT ==============================
-        app.get('/logout', function(req, res) {
-                req.logout();
-                res.redirect('/');
-        });
+        // LOGOUT =======================
+        app.get('/logout', controllers.users.logout);
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
@@ -32,9 +28,7 @@ module.exports = function(app, passport, models) {
         // locally --------------------------------
                 // LOGIN ===============================
                 // show the login form
-                app.get('/login', function(req, res) {
-                        res.render('login.hbs', { message: req.flash('loginMessage') });
-                });
+                app.get('/login', controllers.users.login);
 
                 // process the login form
                 app.post('/login', passport.authenticate('local-login', {
@@ -45,9 +39,7 @@ module.exports = function(app, passport, models) {
 
                 // SIGNUP =================================
                 // show the signup form
-                app.get('/signup', function(req, res) {
-                        res.render('signup.hbs', { message: req.flash('loginMessage') });
-                });
+                app.get('/signup', controllers.users.signup );
 
                 // process the signup form
                 app.post('/signup', passport.authenticate('local-signup', {
@@ -60,6 +52,8 @@ module.exports = function(app, passport, models) {
 
                 // send to facebook to do the authentication
                 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+                // app.get('/auth/facebook', controllers.users.authFacebook(app, passport) );
+
 
                 // handle the callback after facebook has authenticated the user
                 app.get('/auth/facebook/callback',
@@ -176,7 +170,7 @@ module.exports = function(app, passport, models) {
                 user.twitter.token = undefined;
                 user.save(function(err) {
                         res.redirect('/profile');
-                });
+                  });
         });
 
         // google ---------------------------------

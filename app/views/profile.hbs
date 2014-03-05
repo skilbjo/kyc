@@ -35,9 +35,9 @@
 					{{#each users}}
 					<tr>
 						<td>{{_id}}</td>
-						<td>{{#if facebook.token }}	 	X 	{{/if}}</td>
-						<td>{{#if twitter.token }} 		X 	{{/if}}</td>
-						<td>{{#if google.token }} 			X 	{{/if}}</td>
+						<td>{{#if facebook.token }}	 				X 	{{/if}}</td>
+						<td>{{#if twitter.token }} 					X 	{{/if}}</td>
+						<td>{{#if google.token }} 					X 	{{/if}}</td>
 						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
 					</tr>
 					{{/each}}
