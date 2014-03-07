@@ -8,30 +8,34 @@ var bcrypt   = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
 
     local            : {
-        email        : String,
-        password     : String,
-        salt         : String,
+        email           : String,
+        password        : String,
+        salt            : String,
+        mobileNo        : String,
+        streetAddress   : String,
+        cityAddress     : String,
+        stateAddress    : String
     },
     facebook         : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
+        id              : String,
+        token           : String,
+        email           : String,
+        name            : String
     },
     twitter          : {
-        id           : String,
-        token        : String,
-        displayName  : String,
-        username     : String
+        id              : String,
+        token           : String,
+        displayName     : String,
+        username        : String
     },
     google           : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
+        id              : String,
+        token           : String,
+        email           : String,
+        name            : String
     },
     admin            : {
-        isAdmin      : Boolean
+        isAdmin         : Boolean
     }
 
 // add address , phone number; want to be able to edit this

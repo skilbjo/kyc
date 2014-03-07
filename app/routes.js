@@ -9,7 +9,9 @@ module.exports = function(app, passport, models, controllers) {
 
         // PROFILE SECTION ==============
         // app.get('/profile', controllers.users.getProfile); // doesnt work; something about can't find model
-        app.get('/profile', isLoggedIn, function(req, res) {
+        app.get('/profile', isLoggedIn, function(req, res, next) {
+          // var id = req.params.id;
+          // req.user = user[id];
           models.users.find({}, function(err, users) {
              res.render('profile.hbs', {
                   user            : req.user,
@@ -52,7 +54,7 @@ module.exports = function(app, passport, models, controllers) {
 
                 // send to facebook to do the authentication
                 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-                // app.get('/auth/facebook', controllers.users.authFacebook(app, passport) );
+                // app.get('/auth/facebook', controllers.users.authFacebook ); // ask Bernhard about this
 
 
                 // handle the callback after facebook has authenticated the user

@@ -5,7 +5,7 @@ var
     passport = require('passport'),
     flash    = require('connect-flash'),
     express  = require('express'),
-    app      = express(),
+    app      = module.exports = express(),
     mongoose = require('mongoose'),
     hbs  	 = require('hbs'),
     http     = require('http'),
