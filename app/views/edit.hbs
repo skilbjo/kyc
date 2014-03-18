@@ -1,0 +1,76 @@
+<!-- app/views/edit.hbs -->
+
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+		<a href="/profile" class="btn btn-default btn-sm">Back to Profile</a>
+		<a href="/" class="btn btn-default btn-sm">Submit Edits</a>
+	</div>
+
+	<div class="row">
+
+		{{#compare user.admin.isAdmin "==" true }} 
+
+			<div class="well">
+				<h3><span class="fa fa-user"></span>Admin</h3>
+
+				<table border="3">
+					<tr>
+						<th>User ID</th>
+						<th>Facebook</th>
+						<th>Twitter</th>
+						<th>Google</th>
+						<th>isAdmin</th>
+						<th>Edit Profile</th>
+					</tr>
+					{{#each users}}
+					<tr>
+						<td>{{_id}}</td>
+						<td>{{#if facebook.token }}	 				X 	{{/if}}</td>
+						<td>{{#if twitter.token }} 					X 	{{/if}}</td>
+						<td>{{#if google.token }} 					X 	{{/if}}</td>
+						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
+						<td> Edit </td>
+					</tr>
+					{{/each}}
+				</table>
+
+			</div>
+		{{/compare}}
+
+
+		<!-- Editable Information -->
+		<div class="col-sm-6">
+			<div class="well">
+				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information</h3>
+
+				<form action="demo_form">
+				  First name:		<input type="text" name="fname"><br>
+				  Last name: 		<input type="text" name="lname"><br>
+				  Mobile number: 	<input type="text" name="mobile"><br>
+				  Street address: 	<input type="text" name="street"><br>
+				  City: 			<input type="text" name="city"><br>
+				  State: 			<input type="text" name="state"><br>
+				  <input type="submit" value="Submit">
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

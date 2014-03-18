@@ -93,10 +93,11 @@ var models = {
 
 // controllers ========
 var controllers = {
-    static        : require('./app/controllers/static.js'),
+    static        : require('./app/controllers/static.js'),  // change to static_pages
     users         : require('./app/controllers/users.js'),
     business      : require('./app/controllers/business.js'),
-    reviews       : require('./app/controllers/review.js')
+    reviews       : require('./app/controllers/review.js'),
+    test          : require('./app/controllers/test.js')
 };
 
 require('./app/routes.js')(app, passport, models, controllers); // load our routes, models, controllers, and pass in our app and fully configured passport

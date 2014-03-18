@@ -54,8 +54,11 @@ module.exports = function(app, passport, models, controllers) {
 
                 // send to facebook to do the authentication
                 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-                // app.get('/auth/facebook', controllers.users.authFacebook ); // ask Bernhard about this
+                // app.get('/auth/facebook', controllers.users.authFacebook() ); // ask Bernhard about this
 
+
+                // app.get('/test', function ca(req, res) { controllers.test.getTest('123', res) } );
+                // app.get('/test', controllers.test.getTest('123', res) );
 
                 // handle the callback after facebook has authenticated the user
                 app.get('/auth/facebook/callback',
@@ -75,7 +78,6 @@ module.exports = function(app, passport, models, controllers) {
                                 successRedirect : '/profile',
                                 failureRedirect : '/'
                         }));
-
 
         // google ---------------------------------
 
@@ -139,6 +141,13 @@ module.exports = function(app, passport, models, controllers) {
                                 successRedirect : '/profile',
                                 failureRedirect : '/'
                         }));
+
+// =============================================================================
+// FEATURES WHEN LOGGED IN =====================================================
+// =============================================================================
+        // edit profile
+        app.get('/profile/edit', controllers.users.edit );
+
 
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================

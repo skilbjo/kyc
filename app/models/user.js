@@ -10,11 +10,7 @@ var userSchema = mongoose.Schema({
     local            : {
         email           : String,
         password        : String,
-        salt            : String,
-        mobileNo        : String,
-        streetAddress   : String,
-        cityAddress     : String,
-        stateAddress    : String
+        salt            : String
     },
     facebook         : {
         id              : String,
@@ -33,6 +29,14 @@ var userSchema = mongoose.Schema({
         token           : String,
         email           : String,
         name            : String
+    },
+    info            : {
+        firstName       : String,
+        lastName        : String,
+        mobileNo        : String,
+        streetAddress   : String,
+        cityAddress     : String,
+        stateAddress    : String        
     },
     admin            : {
         isAdmin         : Boolean
