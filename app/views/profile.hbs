@@ -49,26 +49,27 @@
 			</div>
 		{{/compare}}
 
-
+			<!-- PROFILE INFORMATION -->
 			<div class="well">
 				<h3><span class="fa fa-user"></span>Info</h3>
 
 				<table border="3">
 					<tr>
 						<th>User ID</th>
-						<th>Facebook</th>
-						<th>Twitter</th>
-						<th>Google</th>
-						<th>Personal info</th>
+						<th>Name</th>
+						<th>Mobile</th>
+						<th>Street</th>
+						<th>City</th>
+						<th>State</th>
 						<th>Edit Profile</th>
 					</tr>
 					<tr>
-						<!-- how to do this for the specific user ?? -->
-						<td>{{_id}}</td>
-						<td>{{#if facebook.token }}	 						X 	{{/if}}</td>
-						<td>{{#if twitter.token }} 							X 	{{/if}}</td>
-						<td>{{#if google.token }} 							X 	{{/if}}</td>
-						<td>{{#if info.firstname}}	{{ info.firstname }} 		{{/if}}</td>
+						<td>{{ user._id}}</td>
+						<td>{{ user.info.firstName }} {{ user.info.lastName }} </td>
+						<td>{{ user.info.mobileNo }} </td>
+						<td>{{ user.info.streetAddress }} </td>
+						<td>{{ user.info.cityAddress }} </td>
+						<td>{{ user.info.stateAddress }} </td>
 						<td> <a href='/profile/edit'>Edit<a></td>
 					</tr>
 				</table>

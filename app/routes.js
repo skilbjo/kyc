@@ -12,12 +12,18 @@ module.exports = function(app, passport, models, controllers) {
         app.get('/profile', isLoggedIn, function(req, res, next) {
           // var id = req.params.id;
           // req.user = user[id];
+          console.log(req.user._id)
           models.users.find({}, function(err, users) {
              res.render('profile.hbs', {
                   user            : req.user,
                   users           : users
              });   
           });
+        });
+
+        // change the above to log in to profile by id
+        app.get('/profile1/:id', function(req, res) {
+            res.send('user ' + req.params.id);
         });
 
         // LOGOUT =======================
@@ -64,7 +70,8 @@ module.exports = function(app, passport, models, controllers) {
                 app.get('/auth/facebook/callback',
                         passport.authenticate('facebook', {
                                 successRedirect : '/profile',
-                                failureRedirect : '/'
+                                failureRedirect : '/',
+                                failureFlash    : true
                         }));
 
         // twitter --------------------------------
@@ -76,7 +83,8 @@ module.exports = function(app, passport, models, controllers) {
                 app.get('/auth/twitter/callback',
                         passport.authenticate('twitter', {
                                 successRedirect : '/profile',
-                                failureRedirect : '/'
+                                failureRedirect : '/',
+                                failureFlash    : true
                         }));
 
         // google ---------------------------------
@@ -88,7 +96,8 @@ module.exports = function(app, passport, models, controllers) {
                 app.get('/auth/google/callback',
                         passport.authenticate('google', {
                                 successRedirect : '/profile',
-                                failureRedirect : '/'
+                                failureRedirect : '/',
+                                failureFlash    : true
                         }));
 
 // =============================================================================
@@ -102,7 +111,7 @@ module.exports = function(app, passport, models, controllers) {
                 app.post('/connect/local', passport.authenticate('local-signup', {
                         successRedirect : '/profile', // redirect to the secure profile section
                         failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-                        failureFlash : true // allow flash messages
+                        failureFlash : 'Invalid username or password.' // allow flash messages
                 }));
 
         // facebook -------------------------------
@@ -154,13 +163,13 @@ module.exports = function(app, passport, models, controllers) {
               if (err)
                 return done(err);
 
-            user             = req.user;
+            user                    = req.user;
             user.info.firstName     = req.body.firstname;
             user.info.lastName      = req.body.lastname;
             user.info.mobileNo      = req.body.mobile;
             user.info.streetAddress = req.body.street;
-            user.info.city          = req.body.city;
-            user.info.state         = req.body.state;
+            user.info.cityAddress   = req.body.city;
+            user.info.stateAddress  = req.body.state;
 
               user.save(function(err) {
                   if (err)
