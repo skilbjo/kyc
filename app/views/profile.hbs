@@ -19,6 +19,7 @@
 
 	<div class="row">
 
+		<!-- ADMIN INFORMATION -->
 		{{#compare user.admin.isAdmin "==" true }} 
 
 			<div class="well">
@@ -48,6 +49,31 @@
 			</div>
 		{{/compare}}
 
+
+			<div class="well">
+				<h3><span class="fa fa-user"></span>Info</h3>
+
+				<table border="3">
+					<tr>
+						<th>User ID</th>
+						<th>Facebook</th>
+						<th>Twitter</th>
+						<th>Google</th>
+						<th>Personal info</th>
+						<th>Edit Profile</th>
+					</tr>
+					<tr>
+						<!-- how to do this for the specific user ?? -->
+						<td>{{_id}}</td>
+						<td>{{#if facebook.token }}	 						X 	{{/if}}</td>
+						<td>{{#if twitter.token }} 							X 	{{/if}}</td>
+						<td>{{#if google.token }} 							X 	{{/if}}</td>
+						<td>{{#if info.firstname}}	{{ info.firstname }} 		{{/if}}</td>
+						<td> <a href='/profile/edit'>Edit<a></td>
+					</tr>
+				</table>
+
+			</div>
 
 
 		<!-- LOCAL INFORMATION -->

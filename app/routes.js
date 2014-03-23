@@ -145,8 +145,30 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
 // FEATURES WHEN LOGGED IN =====================================================
 // =============================================================================
-        // edit profile
+        // show the edit profile page and form
         app.get('/profile/edit', controllers.users.edit );
+
+        // on the submission of the form
+        app.post('/profile/edit', isLoggedIn, function(req, res, next) {
+          models.users.find({}, function(err, user) {
+              if (err)
+                return done(err);
+
+            user             = req.user;
+            user.info.firstName     = req.body.firstname;
+            user.info.lastName      = req.body.lastname;
+            user.info.mobileNo      = req.body.mobile;
+            user.info.streetAddress = req.body.street;
+            user.info.city          = req.body.city;
+            user.info.state         = req.body.state;
+
+              user.save(function(err) {
+                  if (err)
+                      throw err;
+              });
+             res.redirect('/profile');   
+          });
+        });
 
 
 // =============================================================================

@@ -50,6 +50,8 @@ var userSchema = mongoose.Schema({
 // add a review;; user can add a review to a business
 });
 
+var UserModel = mongoose.model('User', userSchema);
+
 // methods ======================
 // generating a hash
 userSchema.methods.generateHash = function(password) {
@@ -63,3 +65,8 @@ userSchema.methods.validPassword = function(password) {
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
+
+// module.exports = function getUser(id, found) {
+//     console.log("find user by id: " + id);
+//     UserModel.findById(id, found);
+// };
