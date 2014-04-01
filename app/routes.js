@@ -9,22 +9,19 @@ module.exports = function(app, passport, models, controllers) {
 
         // PROFILE SECTION ==============
         // app.get('/profile', controllers.users.getProfile); // doesnt work; something about can't find model
-        app.get('/profile', isLoggedIn, function(req, res, next) {
-          // var id = req.params.id;
-          // req.user = user[id];
-          console.log(req.user._id)
+        app.get('/profile/:id', isLoggedIn, function(req, res, next) {
+          var id = req.user._id;
           models.users.find({}, function(err, users) {
-             res.render('profile.hbs', {
+             res.render('profile', {
                   user            : req.user,
                   users           : users
              });   
           });
         });
 
-        // change the above to log in to profile by id
-        app.get('/profile1/:id', function(req, res) {
-            res.send('user ' + req.params.id);
-        });
+        app.get('/profile', isLoggedIn, function(req, res) {
+          res.redirect('/profile/' + req.user._id);
+        })
 
         // LOGOUT =======================
         app.get('/logout', controllers.users.logout);
@@ -39,22 +36,40 @@ module.exports = function(app, passport, models, controllers) {
                 app.get('/login', controllers.users.login);
 
                 // process the login form
-                app.post('/login', passport.authenticate('local-login', {
-                        successRedirect : '/profile', // redirect to the secure profile section
-                        failureRedirect : '/login', // redirect back to the signup page if there is an error
-                        failureFlash : true // allow flash messages
-                }));
+                // app.post('/login', 
+                //   passport.authenticate('local-login', 
+                //       {
+                //         successRedirect : '/profile', // redirect to the secure profile section
+                //         failureRedirect : '/login', // redirect back to the signup page if there is an error
+                //         failureFlash : true // allow flash messages
+                //       }
+                //     ));
+
+                app.post('/login', 
+                  passport.authenticate('local-login'), function(req, res) {
+                      res.redirect('/profile/' + req.user._id);
+                    });
 
                 // SIGNUP =================================
                 // show the signup form
-                app.get('/signup', controllers.users.signup );
+                app.get('/signup', controllers.users.signupView );
 
                 // process the signup form
-                app.post('/signup', passport.authenticate('local-signup', {
-                        successRedirect : '/profile', // redirect to the secure profile section
-                        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-                        failureFlash : true // allow flash messages
-                }));
+                // app.post('/signup', passport.authenticate('local-signup', {
+                //         successRedirect : '/profile', // redirect to the secure profile section
+                //         failureRedirect : '/signup', // redirect back to the signup page if there is an error
+                //         failureFlash : true // allow flash messages
+                // }));
+
+                // app.get('/test', function (req, res) { controllers.test.getTest('1234', res) } ); // work on this
+                
+                // process the signup form
+                app.post('/signup', function(req, res) { controllers.users.signupLocal(req, res, passport) } );
+
+                // app.post('/signup', passport.authenticate('local-signup', function(req, res) {
+                //         console.log(req);
+                //         res.redirect('/profile/' + req.user._id);
+                // }));
 
         // facebook -------------------------------
 
@@ -62,13 +77,10 @@ module.exports = function(app, passport, models, controllers) {
                 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
                 // app.get('/auth/facebook', controllers.users.authFacebook() ); // ask Bernhard about this
 
-
-                // app.get('/test', function ca(req, res) { controllers.test.getTest('123', res) } );
-                // app.get('/test', controllers.test.getTest('123', res) );
-
+                app.get('/test', function (req, res) { controllers.test.getTest('1234', res) } ); // work on this
+                
                 // handle the callback after facebook has authenticated the user
-                app.get('/auth/facebook/callback',
-                        passport.authenticate('facebook', {
+                app.get('/auth/facebook/callback', passport.authenticate('facebook', {
                                 successRedirect : '/profile',
                                 failureRedirect : '/',
                                 failureFlash    : true
@@ -95,7 +107,7 @@ module.exports = function(app, passport, models, controllers) {
                 // the callback after google has authenticated the user
                 app.get('/auth/google/callback',
                         passport.authenticate('google', {
-                                successRedirect : '/profile',
+                                successRedirect : '/profile', // /profile/:id  ?? bernhard
                                 failureRedirect : '/',
                                 failureFlash    : true
                         }));
@@ -147,7 +159,7 @@ module.exports = function(app, passport, models, controllers) {
                 // the callback after google has authorized the user
                 app.get('/connect/google/callback',
                         passport.authorize('google', {
-                                successRedirect : '/profile',
+                                successRedirect : '/profile/:id',
                                 failureRedirect : '/'
                         }));
 
@@ -155,7 +167,17 @@ module.exports = function(app, passport, models, controllers) {
 // FEATURES WHEN LOGGED IN =====================================================
 // =============================================================================
         // show the edit profile page and form
-        app.get('/profile/edit', controllers.users.edit );
+        // app.get('/profile/edit', controllers.users.edit );
+
+        // why isn't this working ??
+        // app.get('/profile/edit', function (req, res) {
+        //   console.log('wtf....');
+        //   res.send('hello');
+        // } );`
+
+        app.get('/profile/edit', function(req, res) {
+          console.log('wtf... why aren`t you working !!!');
+        });
 
         // on the submission of the form
         app.post('/profile/edit', isLoggedIn, function(req, res, next) {

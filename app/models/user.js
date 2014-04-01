@@ -42,15 +42,10 @@ var userSchema = mongoose.Schema({
         isAdmin         : Boolean
     }
 
-// add address , phone number; want to be able to edit this
-// should be able to edit this data
-
 // use a form, jquery post
 // admin can select 1 user and update the data just like the user can update his own data
 // add a review;; user can add a review to a business
 });
-
-var UserModel = mongoose.model('User', userSchema);
 
 // methods ======================
 // generating a hash
@@ -65,8 +60,3 @@ userSchema.methods.validPassword = function(password) {
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
-
-// module.exports = function getUser(id, found) {
-//     console.log("find user by id: " + id);
-//     UserModel.findById(id, found);
-// };
