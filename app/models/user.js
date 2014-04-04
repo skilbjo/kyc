@@ -1,11 +1,16 @@
 // app/models/user.js
 
 // load the things we need
-var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
+var 
+    mongoose        = require('mongoose'),
+    bcrypt          = require('bcrypt-nodejs'),
+    Schema          = mongoose.Schema,
+    autoIncrement   = require('mongoose-auto-increment');
+
+// configuration ===============================================================
 
 // define the schema for our user model
-var userSchema = mongoose.Schema({
+var userSchema = new Schema ({
 
     local            : {
         email           : String,
@@ -42,10 +47,10 @@ var userSchema = mongoose.Schema({
         isAdmin         : Boolean
     }
 
-// use a form, jquery post
-// admin can select 1 user and update the data just like the user can update his own data
-// add a review;; user can add a review to a business
 });
+
+// autoIncrement the primary key
+userSchema.plugin(autoIncrement.plugin, 'User');
 
 // methods ======================
 // generating a hash

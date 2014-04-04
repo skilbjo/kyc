@@ -5,6 +5,7 @@ var
     passport        = require('passport'),
     flash           = require('connect-flash'),
     express         = require('express'),
+    resource        = require('express-resource'),
     app             = module.exports = express(),
     mongoose        = require('mongoose'),
     autoIncrement   = require('mongoose-auto-increment'),
@@ -13,16 +14,15 @@ var
     configDB        = require('./config/database.js');
 
 // configuration ===============================================================
-var connection = mongoose.createConnection(configDB.url);
-// mongoose.connect(configDB.url); // connect to our database
-
+var connection = mongoose.connect(configDB.url); // connect to our database
 autoIncrement.initialize(connection);
 
 app.configure(function() {
-
 	// set up our express application
     app.set('port', process.env.PORT || 8080);
     app.use(express.favicon());
+    // app.use(app.router); // doesn't work
+    // app.resource('users', require('./users')); // for resourceful routes; https://github.com/visionmedia/express-resource
 	app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	app.use(express.urlencoded()); // get information from html forms
@@ -37,10 +37,7 @@ app.configure(function() {
 	app.use(passport.initialize());
 	app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
-
 });
-
-
 
 // handlebars stuff ============================================================
 hbs.handlebars === require('handlebars');

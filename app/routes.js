@@ -14,10 +14,12 @@ module.exports = function(app, passport, models, controllers) {
           res.redirect('/profile/' + req.user._id);
         })
 
+// app.get('/profile/:id(^[0-9]+$)', isLoggedIn, function(req, res, next) {
+//(/^[a-f\d]{24}$/i) -- regex for mongodb id
         // app.get('/profile', controllers.users.getProfile); // doesnt work; something about can't find model
-        app.get('/profile/:id(/^[a-f\d]{24}$/i)', isLoggedIn, function(req, res, next) {
-          // var id = req.params.id;
-          var id = req.user._id;
+        app.get('/profile/:id', isLoggedIn, function(req, res, next) {
+          var id = req.params.id;
+          // var id = req.user._id;
           console.log('in /profile router');
           models.users.find({}, function(err, users) {
              res.render('profile', {
@@ -26,8 +28,6 @@ module.exports = function(app, passport, models, controllers) {
              });   
           });
         });
-
-
 
         // LOGOUT =======================
         app.get('/logout', controllers.users.logout);
@@ -61,16 +61,16 @@ module.exports = function(app, passport, models, controllers) {
                 app.get('/signup', controllers.users.signupView );
 
                 // process the signup form
-                // app.post('/signup', passport.authenticate('local-signup', {
-                //         successRedirect : '/profile', // redirect to the secure profile section
-                //         failureRedirect : '/signup', // redirect back to the signup page if there is an error
-                //         failureFlash : true // allow flash messages
-                // }));
+                app.post('/signup', passport.authenticate('local-signup', {
+                        successRedirect : '/profile', // redirect to the secure profile section
+                        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+                        failureFlash : true // allow flash messages
+                }));
 
                 // app.get('/test', function (req, res) { controllers.test.getTest('1234', res) } ); // work on this
                 
                 // process the signup form
-                app.post('/signup', function(req, res) { controllers.users.signupLocal(req, res, passport) } );
+                // app.post('/signup', function(req, res) { controllers.users.signupLocal(req, res, passport) } );
 
                 // app.post('/signup', passport.authenticate('local-signup', function(req, res) {
                 //         console.log(req);
@@ -181,9 +181,7 @@ module.exports = function(app, passport, models, controllers) {
         //   res.send('hello');
         // } );`
 
-        app.get('/profile/edit', function(req, res) {
-          console.log('wtf... why aren`t you working !!!');
-        });
+        app.get('/profile/edit', controllers.users.edit );
 
         // on the submission of the form
         app.post('/profile/edit', isLoggedIn, function(req, res, next) {
