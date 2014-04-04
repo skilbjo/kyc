@@ -8,9 +8,17 @@ module.exports = function(app, passport, models, controllers) {
         app.get('/', controllers.static.index);
 
         // PROFILE SECTION ==============
+
+        app.get('/profile', isLoggedIn, function(req, res) {
+          console.log(req.user._id);
+          res.redirect('/profile/' + req.user._id);
+        })
+
         // app.get('/profile', controllers.users.getProfile); // doesnt work; something about can't find model
-        app.get('/profile/:id', isLoggedIn, function(req, res, next) {
+        app.get('/profile/:id(/^[a-f\d]{24}$/i)', isLoggedIn, function(req, res, next) {
+          // var id = req.params.id;
           var id = req.user._id;
+          console.log('in /profile router');
           models.users.find({}, function(err, users) {
              res.render('profile', {
                   user            : req.user,
@@ -19,9 +27,7 @@ module.exports = function(app, passport, models, controllers) {
           });
         });
 
-        app.get('/profile', isLoggedIn, function(req, res) {
-          res.redirect('/profile/' + req.user._id);
-        })
+
 
         // LOGOUT =======================
         app.get('/logout', controllers.users.logout);
