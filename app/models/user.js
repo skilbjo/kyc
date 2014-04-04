@@ -1,16 +1,14 @@
 // app/models/user.js
 
 // load the things we need
-var 
-    mongoose        = require('mongoose'),
+var mongoose        = require('mongoose'),
     bcrypt          = require('bcrypt-nodejs'),
-    Schema          = mongoose.Schema,
     autoIncrement   = require('mongoose-auto-increment');
 
 // configuration ===============================================================
 
 // define the schema for our user model
-var userSchema = new Schema ({
+var userSchema = mongoose.Schema({
 
     local            : {
         email           : String,

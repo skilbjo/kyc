@@ -1,7 +1,8 @@
 // app/models/review.js
 
 // load the things we need
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    autoIncrement   = require('mongoose-auto-increment');
 
 // define the schema for our review model
 var reviewSchema = mongoose.Schema({
@@ -13,6 +14,9 @@ var reviewSchema = mongoose.Schema({
     },
 
 });
+
+// autoIncrement the primary key
+reviewSchema.plugin(autoIncrement.plugin, 'Review');
 
 // methods ======================
 
