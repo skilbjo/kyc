@@ -2,17 +2,21 @@
 
 // set up ======================================================================
 var 
-    passport = require('passport'),
-    flash    = require('connect-flash'),
-    express  = require('express'),
-    app      = module.exports = express(),
-    mongoose = require('mongoose'),
-    hbs  	 = require('hbs'),
-    http     = require('http'),
-    configDB = require('./config/database.js');
+    passport        = require('passport'),
+    flash           = require('connect-flash'),
+    express         = require('express'),
+    app             = module.exports = express(),
+    mongoose        = require('mongoose'),
+    autoIncrement   = require('mongoose-auto-increment'),
+    hbs  	        = require('hbs'),
+    http            = require('http'),
+    configDB        = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+var connection = mongoose.createConnection(configDB.url);
+// mongoose.connect(configDB.url); // connect to our database
+
+autoIncrement.initialize(connection);
 
 app.configure(function() {
 
