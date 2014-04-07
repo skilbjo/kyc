@@ -27,6 +27,12 @@ app.configure(function() {
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	app.use(express.urlencoded()); // get information from html forms
 	app.use(express.json());
+    // app.use(function (err, req, res, next) {            // 404 error
+    // res.status(err.status || 404);
+    // res.send(err.message);    
+    // res.send(404, 'four oh four error');
+    // next();
+    // }); 
 
 	// handlebars engine for templating :-}
 	app.set('view engine', 'hbs');
@@ -38,6 +44,8 @@ app.configure(function() {
 	app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
 });
+
+// app.param('id', /^[0-9]+$/);
 
 // handlebars stuff ============================================================
 hbs.handlebars === require('handlebars');

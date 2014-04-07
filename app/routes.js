@@ -14,6 +14,8 @@ module.exports = function(app, passport, models, controllers) {
           res.redirect('/profile/' + req.user._id);
         })
 
+        // app.param('id', /^[0-9]+$/);
+
 // app.get('/profile/:id(^[0-9]+$)', isLoggedIn, function(req, res, next) {
 //(/^[a-f\d]{24}$/i) -- regex for mongodb id
         // app.get('/profile', controllers.users.getProfile); // doesnt work; something about can't find model
