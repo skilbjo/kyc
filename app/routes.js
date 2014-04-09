@@ -44,7 +44,7 @@ module.exports = function(app, passport, models, controllers) {
   app.get('/auth/twitter/callback', passport.authenticate('twitter'),   function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // google ---------------------------------
-  app.get('/auth/google', passport.authenticate('google', { scope : ['users', 'email'] }));
+  app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
   app.get('/auth/google/callback', passport.authenticate('google'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
@@ -64,7 +64,7 @@ module.exports = function(app, passport, models, controllers) {
     app.get('/connect/twitter/callback', passport.authorize('twitter'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // google ---------------------------------
-    app.get('/connect/google', passport.authorize('google', { scope : ['users', 'email'] }));
+    app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }) );
     app.get('/connect/google/callback', passport.authorize('google'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
 // =============================================================================
@@ -88,6 +88,5 @@ module.exports = function(app, passport, models, controllers) {
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
           return next();
-
   res.redirect('/');
 }
