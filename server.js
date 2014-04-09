@@ -37,18 +37,10 @@ app.configure(function() {
 	app.use(flash()); // use connect-flash for flash messages stored in session
 });
 
-// handlebars stuff ============================================================
-hbs.handlebars === require('handlebars');
-
 // register handlebars helpers =================================================
-
+hbs.handlebars === require('handlebars');
 hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
-
     var operators, result;
-    
-    if (arguments.length < 3) {
-        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-    }
     
     if (options === undefined) {
         options = rvalue;
@@ -83,7 +75,7 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 });
 
 // routes ======================================================================
-// models ============
+// models =============
 var models = {
     users       : require('./app/models/user.js'),
     business    : require('./app/models/business.js'),
@@ -102,13 +94,11 @@ require('./app/routes.js')(app, passport, models, controllers);
 require('./config/passport')(passport); // pass passport for configuration
 
 // launch ======================================================================
-// development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log(app.routes);
   console.log('The magic happens on port ' + app.get('port'));
 });
 

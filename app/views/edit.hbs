@@ -16,7 +16,7 @@
 	<div class="page-header text-center">
 		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-		<a href="/profile/{{ user._id}}" class="btn btn-default btn-sm">Back to Profile</a>
+		<a href="/users/{{ user._id}}" class="btn btn-default btn-sm">Back to Profile</a>
 	</div>
 
 	<div class="row">
@@ -26,7 +26,7 @@
 			<div class="well">
 				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user._id}}</h3>
 
-				<form method="POST" action="/profile/{{ user._id }}">
+				<form method="POST" action="/users/{{ user._id }}">
 					<input type="hidden" name="_method" value="put">
 				  First name:		<input type="text" name="firstname"><br>
 				  Last name: 		<input type="text" name="lastname"><br>

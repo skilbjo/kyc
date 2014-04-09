@@ -7,26 +7,28 @@ module.exports = function(app, passport, models, controllers) {
 
   app.get('/login', controllers.static_pages.getLogin);
   
-  app.post('/login', passport.authenticate('local-login'), function(req, res) { res.redirect('/profile/' + req.user._id) });
+  app.post('/login', passport.authenticate('local-login'), function(req, res) { res.redirect('/users/' + req.user._id) });
 
   app.get('/logout', controllers.users.logout);
 
 // =============================================================================
 // USERS =======================================================================
 // =============================================================================
-  // index method (path is /users) is made available only for admin users and is in hbs view logic
+  // RESTful API
+
+  //app.get('/users', users.show); index method (path is /users) is made available only for admin users and is in hbs view logic
 
   app.get('/users/new', controllers.users.new );
 
   app.post('/users', passport.authenticate('local-signup'), function(req, res) { controllers.users.create(req, res) } );
 
-  app.get('/profile/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.show(req, res, models) } );
+  app.get('/users/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.show(req, res, models) } );
 
-  app.get('/profile/:id/edit', controllers.users.edit );
+  app.get('/users/:id/edit', controllers.users.edit );
 
-  app.post('/profile/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.update(req, res, models) } );
+  app.post('/users/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.update(req, res, models) } );
 
-  // destroy will not be made available from the application
+  //app.delete('/users/:id', users.destroy) destroy will not be made available from the application
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
@@ -34,108 +36,51 @@ module.exports = function(app, passport, models, controllers) {
   // facebook -------------------------------
   app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
         
-  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/profile/' + req.user._id) } );
+  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // twitter --------------------------------
   app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
-  app.get('/auth/twitter/callback', passport.authenticate('twitter'),   function(req, res) { res.redirect('/profile/' + req.user._id) } );
+  app.get('/auth/twitter/callback', passport.authenticate('twitter'),   function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // google ---------------------------------
-  app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+  app.get('/auth/google', passport.authenticate('google', { scope : ['users', 'email'] }));
 
-  // the callback after google has authenticated the user
-  app.get('/auth/google/callback', passport.authenticate('google'),     function(req, res) { res.redirect('/profile/' + req.user._id) } );
+  app.get('/auth/google/callback', passport.authenticate('google'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
   // locally --------------------------------
-    app.get('/connect/local', function(req, res) {
-            res.render('connect-local.hbs', { message: req.flash('loginMessage') });
-    });
-    app.post('/connect/local', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-            failureFlash : 'Invalid username or password.' // allow flash messages
-    }));
+    app.get('/connect/local', function(req, res) { res.render('connect-local.hbs', { message: req.flash('loginMessage') , user : req.user }); });
+    app.post('/connect/local', passport.authenticate('local-signup'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // facebook -------------------------------
-    // send to facebook to do the authentication
     app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
-
-    // handle the callback after facebook has authorized the user
-    app.get('/connect/facebook/callback',
-            passport.authorize('facebook', {
-                    successRedirect : '/profile',
-                    failureRedirect : '/'
-            }));
+    app.get('/connect/facebook/callback', passport.authorize('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // twitter --------------------------------
-    // send to twitter to do the authentication
     app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
-
-    // handle the callback after twitter has authorized the user
-    app.get('/connect/twitter/callback',
-            passport.authorize('twitter', {
-                    successRedirect : '/profile',
-                    failureRedirect : '/'
-            }));
-
+    app.get('/connect/twitter/callback', passport.authorize('twitter'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // google ---------------------------------
-    // send to google to do the authentication
-    app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
-
-    // the callback after google has authorized the user
-    app.get('/connect/google/callback',
-            passport.authorize('google', {
-                    successRedirect : '/profile/:id',
-                    failureRedirect : '/'
-            }));
-
-
+    app.get('/connect/google', passport.authorize('google', { scope : ['users', 'email'] }));
+    app.get('/connect/google/callback', passport.authorize('google'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
 // =============================================================================
   // local -----------------------------------
-  app.get('/unlink/local', function(req, res) {
-          var user            = req.user;
-          user.local.email    = undefined;
-          user.local.password = undefined;
-          user.save(function(err) {
-                  res.redirect('/profile');
-          });
-  });
+  app.get('/unlink/local', function(req, res) { controllers.users.unlinkLocal(req, res) } );
 
   // facebook -------------------------------
-  app.get('/unlink/facebook', function(req, res) {
-          var user            = req.user;
-          user.facebook.token = undefined;
-          user.save(function(err) {
-                  res.redirect('/profile');
-          });
-  });
+  app.get('/unlink/facebook', function(req, res) { controllers.users.unlinkFacebook(req, res) } );
 
   // twitter --------------------------------
-  app.get('/unlink/twitter', function(req, res) {
-          var user           = req.user;
-          user.twitter.token = undefined;
-          user.save(function(err) {
-                  res.redirect('/profile');
-            });
-  });
+  app.get('/unlink/twitter', function(req, res) { controllers.users.unlinkTwitter(req, res) } );
 
   // google ---------------------------------
-  app.get('/unlink/google', function(req, res) {
-          var user          = req.user;
-          user.google.token = undefined;
-          user.save(function(err) {
-                  res.redirect('/profile');
-          });
-  });
-
+  app.get('/unlink/google', function(req, res) { controllers.users.unlinkGoogle(req, res) } );
 
 };
 

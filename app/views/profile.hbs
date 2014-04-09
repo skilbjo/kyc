@@ -41,7 +41,7 @@
 						<td>{{#if twitter.token }} 					X 	{{/if}}</td>
 						<td>{{#if google.token }} 					X 	{{/if}}</td>
 						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
-						<td> <a href='/profile/{{_id}}/edit'>Edit<a></td>
+						<td> <a href='/users/{{_id}}/edit'>Edit<a></td>
 					</tr>
 					{{/each}}
 				</table>
@@ -70,7 +70,7 @@
 						<td>{{ user.info.streetAddress }} </td>
 						<td>{{ user.info.cityAddress }} </td>
 						<td>{{ user.info.stateAddress }} </td>
-						<td> <a href='/profile/{{ user._id }}/edit'>Edit<a></td>
+						<td> <a href='/users/{{ user._id }}/edit'>Edit<a></td>
 					</tr>
 				</table>
 
