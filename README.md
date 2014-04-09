@@ -1,8 +1,8 @@
-##passport
+##KNOW YOUR CLIENT
 
 ###What
 
-passport is an app that experiments with using the Javascript language for the entire stack. From the `mongo` database and `mongoose` ORM, to server side `node.js` and the `express` framework, and the `handlebars.js` templating engine, to client side `jQuery` and `Angular`, everything will be written using the Javascript programming language.
+kyc is an app that experiments with using the Javascript language for the entire stack. From the `mongo` database and `mongoose` ORM, to server side `node.js` and the `express` framework, and the `handlebars.js` templating engine, to client side `jQuery` and `Angular`, everything will be written using the Javascript programming language.
 
 This app experiments with OAuth (signin with Twitter!) and creating reviews of locations using the Google Maps API.
 
@@ -22,7 +22,7 @@ This app experiments with OAuth (signin with Twitter!) and creating reviews of l
 
 Clone the repository
 
-	$ git clone https://github.com/skilbjo/passport.git
+	$ git clone https://github.com/skilbjo/kyc.git
 	
 Install modules and dependencies
 	
@@ -62,7 +62,7 @@ You should get this back:
 and
 ```
 > db.getParameter
-passport.getParameter
+kyc.getParameter
 ```
 	
 Run the app

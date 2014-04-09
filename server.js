@@ -22,6 +22,7 @@ app.configure(function() {
     app.use(express.favicon());
     app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
+    app.use(express.methodOverride());
 	app.use(express.urlencoded()); // get information from html forms
 	app.use(express.json());
 
@@ -107,6 +108,7 @@ if ('development' == app.get('env')) {
 }
 
 http.createServer(app).listen(app.get('port'), function(){
+  console.log(app.routes);
   console.log('The magic happens on port ' + app.get('port'));
 });
 

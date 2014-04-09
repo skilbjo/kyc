@@ -21,42 +21,13 @@
 
 	<div class="row">
 
-		{{#compare user.admin.isAdmin "==" true }} 
-
-			<div class="well">
-				<h3><span class="fa fa-user"></span>Admin</h3>
-
-				<table border="3">
-					<tr>
-						<th>User ID</th>
-						<th>Facebook</th>
-						<th>Twitter</th>
-						<th>Google</th>
-						<th>isAdmin</th>
-						<th>Edit Profile</th>
-					</tr>
-					{{#each users}}
-					<tr>
-						<td>{{_id}}</td>
-						<td>{{#if facebook.token }}	 				X 	{{/if}}</td>
-						<td>{{#if twitter.token }} 					X 	{{/if}}</td>
-						<td>{{#if google.token }} 					X 	{{/if}}</td>
-						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
-						<td> Edit </td>
-					</tr>
-					{{/each}}
-				</table>
-
-			</div>
-		{{/compare}}
-
-
 		<!-- Editable Information -->
 		<div class="col-sm-6">
 			<div class="well">
-				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information{{ user._id}} x {{ _id }}</h3>
+				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user._id}}</h3>
 
-				<form method="post" action="/profile/{{ user._id }}/edit">
+				<form method="POST" action="/profile/{{ user._id }}">
+					<input type="hidden" name="_method" value="put">
 				  First name:		<input type="text" name="firstname"><br>
 				  Last name: 		<input type="text" name="lastname"><br>
 				  Mobile number: 	<input type="text" name="mobile"><br>
@@ -69,7 +40,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 </body>
 </html>
