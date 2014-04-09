@@ -35,7 +35,7 @@ Add secret API keys from the super secret email
 Configure the database (assuming `mongo` is running at `/usr/local/bin/mongo`)
 
 	$ mongo
-	> db.serverCmdLineOpts()
+	> db.serverCmdLineOpts();
 
 You should get this back:
 ```
@@ -61,7 +61,7 @@ You should get this back:
 
 and
 ```
-> db.getParameter
+> db.getParameter;
 kyc.getParameter
 ```
 	
