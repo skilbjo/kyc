@@ -24,9 +24,9 @@
 		<!-- Editable Information -->
 		<div class="col-sm-6">
 			<div class="well">
-				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user._id}}</h3>
+				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user}}</h3>
 
-				<form method="POST" action="/users/{{ user._id }}">
+				<form method="POST" action="/users/{{ user }}">
 					<input type="hidden" name="_method" value="put">
 				  First name:		<input type="text" name="firstname"><br>
 				  Last name: 		<input type="text" name="lastname"><br>

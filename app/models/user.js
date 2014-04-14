@@ -61,5 +61,22 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+// validation... should this go in config/passport.js or in the model?
+function emailValidation(email, next, err) {
+    if ( email == /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/ ) {
+        next();
+    } else {
+        throw err;
+    };
+};
+
+function phoneValidation(phone, next, err) {
+    if ( phone == /^[0-9]+$/ /*regex for phone number*/ ) {
+        next();
+    } else {
+        throw err;
+    };
+};
+
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);

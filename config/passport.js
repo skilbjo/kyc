@@ -370,7 +370,5 @@ module.exports = function(passport) {
         });
 
     }));
-
-
-
 };
+
