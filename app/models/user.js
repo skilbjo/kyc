@@ -9,12 +9,6 @@ var mongoose        = require('mongoose'),
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
-
-    local            : {
-        email           : String,
-        password        : String,
-        salt            : String
-    },
     facebook         : {
         id              : String,
         token           : String,
@@ -43,8 +37,12 @@ var userSchema = mongoose.Schema({
     },
     admin            : {
         isAdmin         : Boolean
-    }
-
+    },
+    // local            : {   // no more local
+    //     email           : String,
+    //     password        : String,
+    //     salt            : String
+    // },
 });
 
 // autoIncrement the primary key

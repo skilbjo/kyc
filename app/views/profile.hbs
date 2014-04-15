@@ -30,7 +30,9 @@
 						<th>User ID</th>
 						<th>Facebook</th>
 						<th>Twitter</th>
-						<th>Google</th>
+						<th>Name</th>
+						<th>Location</th>
+						<!-- <th>Google</th> -->
 						<th>isAdmin</th>
 						<th>Edit Profile</th>
 					</tr>
@@ -39,7 +41,9 @@
 						<td>{{_id}}</td>
 						<td>{{#if facebook.token }}	 				X 	{{/if}}</td>
 						<td>{{#if twitter.token }} 					X 	{{/if}}</td>
-						<td>{{#if google.token }} 					X 	{{/if}}</td>
+						<td>{{ info.firstName}} {{ info.lastName }}		   </td>
+						<td>{{ info.cityAddress }}, {{ info.state}}    	   </td>
+						<!-- <td>{{#if google.token }} 					X 	{{/if}}</td> -->
 						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
 						<td> <a href='/users/{{_id}}/edit'>Edit<a></td>
 					</tr>
@@ -78,10 +82,9 @@
 
 
 		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
+<!-- 		<div class="col-sm-6">
 			<div class="well">
 				<h3><span class="fa fa-user"></span> Local</h3>
-
 				{{#if user.local.email }}
 					<p>
 						<strong>id</strong>: {{ user._id }}<br>
@@ -95,14 +98,12 @@
 				{{/if}}
 
 			</div>
-		</div>
+		</div> -->
 
 		<!-- FACEBOOK INFORMATION -->
-		<div class="col-sm-6">
+<!-- 		<div class="col-sm-6">
 			<div class="well">
 				<h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-
-				<!-- check if the user has this token (is the user authenticated with this social account) -->
 				{{#if user.facebook.token }}
 					<p>
 						<strong>id</strong>: {{ user.facebook.id }}<br>
@@ -117,17 +118,15 @@
 				{{/if}}
 
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="row">
 
 		<!-- TWITTER INFORMATION -->
-		<div class="col-sm-6">
+<!-- 		<div class="col-sm-6">
 			<div class="well">
 				<h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
-
-				<!-- check if the user has this token (is the user authenticated with this social account) -->
 				{{#if user.twitter.token }}
 					<p>
 						<strong>id</strong>: {{user.twitter.id}}<br>
@@ -141,15 +140,13 @@
 					<a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
 				{{/if}}
 
-			</div>
+			</div> -->
 		</div>
 
 		<!-- GOOGLE INFORMATION -->
-		<div class="col-sm-6">
+<!-- 		<div class="col-sm-6">
 			<div class="well">
 				<h3 class="text-danger"><span class="fa fa-google-plus"></span> Google+</h3>
-
-				<!-- check if the user has this token (is the user authenticated with this social account) -->
 				{{#if user.google.token}}
 					<p>
 						<strong>id</strong>: {{user.google.id}}<br>
@@ -162,9 +159,8 @@
 				{{else}}
 					<a href="/connect/google" class="btn btn-danger">Connect Google</a>
 				{{/if}}
-
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 </div>
