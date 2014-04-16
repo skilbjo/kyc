@@ -23,14 +23,22 @@
 				<h3><span class="fa fa-user"></span>Info</h3>
 				<table border="3">
 					<tr>
-						<th>Business ID</th>
-						<th>Business Name</th>
+						<th>Company ID</th>
+						<th>Company Name</th>
+						<th>Company Address</th>
 						<th>Choose</th>
 					</tr>
 					<tr>
-						<td>{{ business._id}}</td>
-						<td>{{ business.info.firstName }} </td>
-						<td> <a href='/users/{{ user._id }}/edit'>Pick me!<a></td>
+						<td>{{ company._id}}</td>
+						<td>{{ company.info.firstName }} </td>
+						<td>
+							<form name="associateExisting" method="POST" action="/users/{{ user._id }}/associate">
+								<input type="hidden" name="param1" value="param1Value">
+								<a href="javascript:document.associateExisting.submit()">Pick me!</a>
+							</form>
+						</td>
+
+
 					</tr>
 				</table>
 			</div>
@@ -40,6 +48,16 @@
 			<div class="well">
 				<h3><span class="fa fa-user"></span>Or, Create a New Business</h3>
 				<div class="well">
+					<form name="associateNew" method="POST" action="/users/{{ user._id }}/associate">
+						<input type="hidden" name="_method" value="put">
+					  Company name:		<input type="text" name="firstname"><br>
+					  Email: 					<input type="text" name="lastname"><br>
+					  Phone number: 	<input type="text" name="mobile"><br>
+					  Street address: <input type="text" name="street"><br>
+						City: 			<input type="text" name="city"><br>
+						State: 			<input type="text" name="state"><br>
+					  <input type="submit" value="Submit">
+					</form>
 					Form stuff here
 					Business Name,
 					email, 
