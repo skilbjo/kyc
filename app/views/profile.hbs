@@ -42,7 +42,7 @@
 						<td>{{#if facebook.token }}	 				X 	{{/if}}</td>
 						<td>{{#if twitter.token }} 					X 	{{/if}}</td>
 						<td>{{ info.firstName}} {{ info.lastName }}		   </td>
-						<td>{{ info.cityAddress }}, {{ info.state}}    	   </td>
+						<td>{{ info.cityAddress }}, {{ info.stateAddress}}    	   </td>
 						<!-- <td>{{#if google.token }} 					X 	{{/if}}</td> -->
 						<td>{{#compare admin.isAdmin "==" true }}	X	{{/compare}}</td>
 						<td> <a href='/users/{{_id}}/edit'>Edit<a></td>

@@ -5,7 +5,7 @@ var mongoose 		= require('mongoose'),
     autoIncrement   = require('mongoose-auto-increment');
 
 // define the schema for our business model
-var businessSchema = mongoose.Schema({
+var companySchema = mongoose.Schema({
 
     attributes              : {
         name                : String,
@@ -14,13 +14,13 @@ var businessSchema = mongoose.Schema({
         phoneNumber         : String,
         updated             : { type: Date, default: Date.now }
     },
-
+    user : { type: Number, ref: 'User' }
 });
 
 // autoIncrement the primary key
-businessSchema.plugin(autoIncrement.plugin, 'Business');
+companySchema.plugin(autoIncrement.plugin, 'Company');
 
 // methods ======================
 
 // create the model for business and expose it to our app
-module.exports = mongoose.model('Business', businessSchema);
+module.exports = mongoose.model('Company', companySchema);

@@ -14,13 +14,13 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
 // USERS =======================================================================
 // =============================================================================
-  // RESTful API
+  // RESTful API ======================
 
   //app.get('/users', users.show); index method (path is /users) is made available only for admin users and is in hbs view logic
 
   app.get('/users/new', controllers.users.new );
 
-  app.post('/users', passport.authenticate('local-signup'), function(req, res) { controllers.users.create(req, res) } );
+  //app.post('/users', passport.authenticate('local-signup'), function(req, res) { controllers.users.create(req, res) } ); // signin can happen with OAuth only
 
   app.get('/users/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.show(req, res, models) } );
 
@@ -29,6 +29,11 @@ module.exports = function(app, passport, models, controllers) {
   app.post('/users/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.update(req, res, models) } );
 
   //app.delete('/users/:id', users.destroy) destroy will not be made available from the application
+
+  // Not RESTful API =================
+  app.get('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associate(req, res, models) } );
+
+  app.post('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associate(req, res, models) } );
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================

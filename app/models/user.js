@@ -21,12 +21,6 @@ var userSchema = mongoose.Schema({
         displayName     : String,
         username        : String
     },
-    google           : {
-        id              : String,
-        token           : String,
-        email           : String,
-        name            : String
-    },
     info            : {
         firstName       : String,
         lastName        : String,
@@ -35,13 +29,18 @@ var userSchema = mongoose.Schema({
         cityAddress     : String,
         stateAddress    : String        
     },
-    admin            : {
-        isAdmin         : Boolean
-    },
+    admin            : {  isAdmin : Boolean },
+    company          : { type: Number, ref: 'Company'}
     // local            : {   // no more local
     //     email           : String,
     //     password        : String,
     //     salt            : String
+    // },
+    // google           : {
+    //     id              : String,
+    //     token           : String,
+    //     email           : String,
+    //     name            : String
     // },
 });
 
