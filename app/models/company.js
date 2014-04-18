@@ -10,11 +10,13 @@ var companySchema = mongoose.Schema({
     attributes              : {
         name                : String,
         email               : String,
-        address             : String,
+        streetAddress       : String,
+        cityAddress 		: String,
+        stateAddress		: String,
         phoneNumber         : String,
         updated             : { type: Date, default: Date.now }
     },
-    user : { type: Number, ref: 'User' }
+    users : { type: Number, ref: 'User' }
 });
 
 // autoIncrement the primary key
