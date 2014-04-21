@@ -25,14 +25,14 @@
 			<div class="well">
 				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user}}</h3>
 
-				<form method="POST" action="/users/{{ user }}">
+				<form method="POST" action="/users">
 					<input type="hidden" name="_method" value="put">
-				  First name:		<input type="text" name="firstname"><br>
-				  Last name: 		<input type="text" name="lastname"><br>
-				  Mobile number: 	<input type="text" name="mobile"><br>
-				  Street address: 	<input type="text" name="street"><br>
-				  City: 			<input type="text" name="city"><br>
-				  State: 			<input type="text" name="state"><br>
+				  First name:		<input type="text" name="firstname" value="{{ firstName }}"><br>
+				  Last name: 		<input type="text" name="lastname"	value="{{ lastName }}"><br>
+				  Mobile number: 	<input type="text" name="mobile"	value="{{ mobileNo }}"><br>
+				  Street address: <input type="text" name="street" 	value="{{ streetAddress}}"><br>
+				  City: 			<input type="text" name="city"				value="{{ cityAddress }}"><br>
+				  State: 			<input type="text" name="state"       value="{{ stateAddress }}"><br>
 				  <input type="submit" value="Submit">
 				</form>
 

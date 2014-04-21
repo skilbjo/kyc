@@ -27,6 +27,8 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(cookieParser());
 app.use(methodOverride());
 app.use(bodyParser());
+app.use(errorHandler());
+app.use(morgan('dev'));
 app.use('/public', express.static('public'));
 app.use(session({ secret: 'passportapp' })); // session secret
 app.use(passport.initialize());
@@ -79,7 +81,7 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 // models =============
 var models = {
     users       : require('./app/models/user.js'),
-    companies  : require('./app/models/company.js'),
+    companies   : require('./app/models/company.js'),
     reviews     : require('./app/models/review.js')
 };
 
@@ -95,12 +97,13 @@ require('./app/routes.js')(app, passport, models, controllers);
 require('./config/passport')(passport); // pass passport for configuration
 
 // launch ======================================================================
-if ('development' == env) {
-  app.use(errorHandler());
-  app.use(morgan('dev'));
-}
+// if ('development' == env) {
+//   app.use(errorHandler());
+//   app.use(morgan('dev'));
+// }
 
-http.createServer(app).listen(app.get('port'), function(){
+app.listen(app.get('port'), function(){
+  console.log(env);
   console.log('The magic happens on port ' + app.get('port'));
 });
 

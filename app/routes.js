@@ -18,9 +18,9 @@ module.exports = function(app, passport, models, controllers) {
 
   //app.get('/users', users.show); index method (path is /users) is made available only for admin users and is in hbs view logic
 
-  app.get('/users/new', controllers.users.new );
+  app.get('/users/new', isLoggedIn, function(req, res) { controllers.users.new(req, res, models) } );
 
-  //app.post('/users', passport.authenticate('local-signup'), function(req, res) { controllers.users.create(req, res) } ); // signin can happen with OAuth only
+  app.post('/users', isLoggedIn,    function(req, res) { controllers.users.create(req, res, models) } ); // add in the additional fields
 
   app.get('/users/:id([0-9]+)', isLoggedIn, function(req, res) { controllers.users.show(req, res, models) } );
 
@@ -39,8 +39,9 @@ module.exports = function(app, passport, models, controllers) {
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
   // facebook -------------------------------
-  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));    
-  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } );
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));   
+  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/new') } ); 
+  // app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // twitter --------------------------------
   app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
