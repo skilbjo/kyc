@@ -16,7 +16,7 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
   // RESTful API ======================
 
-  //app.get('/users', users.show); index method (path is /users) is made available only for admin users and is in hbs view logic
+  app.get('/users', function(req, res) { users.show(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
 
   app.get('/users/new', isLoggedIn, function(req, res) { controllers.users.new(req, res, models) } );
 

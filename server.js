@@ -88,7 +88,7 @@ var models = {
 // controllers ========
 var controllers = {
     static_pages  : require('./app/controllers/static_pages.js'),
-    users         : require('./app/controllers/users.js'),
+    users         : require('./app/controllers/user.js'),
     companies     : require('./app/controllers/company.js'),
     reviews       : require('./app/controllers/review.js'),
 };
