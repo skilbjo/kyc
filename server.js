@@ -97,13 +97,7 @@ require('./app/routes.js')(app, passport, models, controllers);
 require('./config/passport')(passport); // pass passport for configuration
 
 // launch ======================================================================
-// if ('development' == env) {
-//   app.use(errorHandler());
-//   app.use(morgan('dev'));
-// }
-
 app.listen(app.get('port'), function(){
-  console.log(env);
   console.log('The magic happens on port ' + app.get('port'));
 });
 
