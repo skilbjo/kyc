@@ -16,7 +16,7 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
   // RESTful API ======================
 
-  app.get('/users', function(req, res) { users.show(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
+  app.get('/users', function(req, res) { controllers.users.index(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
 
   app.get('/users/new', isLoggedIn, function(req, res) { controllers.users.new(req, res, models) } );
 
@@ -41,7 +41,6 @@ module.exports = function(app, passport, models, controllers) {
   // facebook -------------------------------
   app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));   
   app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/new') } ); 
-  // app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } );
 
   // twitter --------------------------------
   app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
@@ -54,10 +53,6 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
-  // locally --------------------------------
-  app.get('/connect/local', function(req, res) { res.render('connect-local.hbs', { message: req.flash('loginMessage') , user : req.user }); });
-  app.post('/connect/local', passport.authenticate('local-signup'), function(req, res) { res.redirect('/users/' + req.user._id) } );
-
   // facebook -------------------------------
   app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
   app.get('/connect/facebook/callback', passport.authorize('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } );
@@ -73,9 +68,6 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
 // =============================================================================
-  // local -----------------------------------
-  app.get('/unlink/local', function(req, res) { controllers.users.unlinkLocal(req, res) } );
-
   // facebook -------------------------------
   app.get('/unlink/facebook', function(req, res) { controllers.users.unlinkFacebook(req, res) } );
 
@@ -84,10 +76,8 @@ module.exports = function(app, passport, models, controllers) {
 
   // google ---------------------------------
   app.get('/unlink/google', function(req, res) { controllers.users.unlinkGoogle(req, res) } );
-
 };
 
-// route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
           return next();

@@ -4,8 +4,8 @@
 <html>
 <head>
 	<title>Node Authentication</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/font-awesome.min.css">
 	<style>
 		body 		{ padding-top:80px; word-wrap:break-word; }
 	</style>
@@ -23,16 +23,16 @@
 		<!-- Editable Information -->
 		<div class="col-sm-6">
 			<div class="well">
-				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user}}</h3>
+				<h3 class="text-danger"><span class="fa fa-user"></span> Edit Information for User# {{ user._id }}</h3>
 
 				<form method="POST" action="/users">
 					<input type="hidden" name="_method" value="put">
-				  First name:		<input type="text" name="firstname" value="{{ firstName }}"><br>
-				  Last name: 		<input type="text" name="lastname"	value="{{ lastName }}"><br>
-				  Mobile number: 	<input type="text" name="mobile"	value="{{ mobileNo }}"><br>
-				  Street address: <input type="text" name="street" 	value="{{ streetAddress}}"><br>
-				  City: 			<input type="text" name="city"				value="{{ cityAddress }}"><br>
-				  State: 			<input type="text" name="state"       value="{{ stateAddress }}"><br>
+				  First name:		<input type="text" name="firstname" value="{{ user.firstName }}"><br>
+				  Last name: 		<input type="text" name="lastname"	value="{{ user.lastName }}"><br>
+				  Mobile number: 	<input type="text" name="mobile"	value="{{ user.mobileNo }}"><br>
+				  Street address: <input type="text" name="street" 	value="{{ user.streetAddress}}"><br>
+				  City: 			<input type="text" name="city"				value="{{ user.cityAddress }}"><br>
+				  State: 			<input type="text" name="state"       value="{{ user.stateAddress }}"><br>
 				  <input type="submit" value="Submit">
 				</form>
 
