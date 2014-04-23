@@ -15,8 +15,7 @@ module.exports = function(app, passport, models, controllers) {
 // USERS =======================================================================
 // =============================================================================
   // RESTful API ======================
-
-  app.get('/users', function(req, res) { controllers.users.index(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
+  app.get('/users', isAdmin, function(req, res) { controllers.users.index(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
 
   app.get('/users/new', isLoggedIn, function(req, res) { controllers.users.new(req, res, models) } );
 
@@ -40,7 +39,7 @@ module.exports = function(app, passport, models, controllers) {
 // =============================================================================
   // facebook -------------------------------
   app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));   
-  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/new') } ); 
+  app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) { res.redirect('/users/' + req.user._id) } ); 
 
   // twitter --------------------------------
   app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
@@ -82,4 +81,14 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
           return next();
   res.redirect('/');
-}
+};
+
+function isAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user.admin.isAdmin) {
+    return next();
+  } else {
+  res.redirect('/');
+  };
+};
+
+
