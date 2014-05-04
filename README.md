@@ -93,4 +93,4 @@ events.js:72
 Error: failed to connect to [localhost:27017]
 ```
 
-Just run this: `$ mongod --fork` to start the database (and to kill the database process, run `$ killall mongod`)
+Just run this: `$ mongod --fork` or `mongod --dbpath /Users/skilbjo/Code/Mongo/data/` to start the database (and to kill the database process, run `$ killall mongod`)
