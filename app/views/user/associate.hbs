@@ -2,14 +2,34 @@
 <!doctype html>
 <html>
 <head>
-	<title>Node Authentication</title>
+	<title>User Profile</title>
 	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/public/css/font-awesome.min.css">
-	<script src="/public/javascript/sorttable.js"></script>
-	<script src="/public/javascript/jquery.js"></script>
 	<style>
 		body 		{ padding-top:80px; word-wrap:break-word; }
 	</style>
+	<script src="/public/javascript/sorttable.js"></script>
+	<script src="/public/javascript/jquery.js"></script>
+
+	<script>
+		$('#listcompanies').on('click', function(event) {
+			event.preventDefault();
+			console.log('in jquery');
+ 			var id = event.srcElement.attr('id');
+ 			var cName = event.srcElement.attr('')
+		  $.ajax({
+		    type: "POST",
+		    timeout: 50000,
+		    url: "/users/{{user._id}}/associate/" + id,
+		      data: {"name":"bernhard","phone":"22341234" },
+		    success: function (data) {
+		      console.log(JSON.stringify(data))
+		      return true;
+		    }
+		  });
+		});
+ </script>
+
 </head>
 <body>
 <div class="container">
@@ -30,29 +50,32 @@
 						<th>Company Address</th>
 						<th>Choose</th>
 					</tr>
+					
+					{{#each companies}}
 					<tr>
-						<td>{{ company._id}}</td>
-						<td>{{ company.name }} </td>
-						<td>{{ company.address }} </td>
-						<td>
-							<form name="associateExisting" method="POST" action="/users/{{ user._id }}/associate/{{ company._id }}?new=false">
-								<input type="hidden" name="param1" value="param1Value">
-								<a href="javascript:document.associateExisting.submit()">Pick me!</a>
-							</form>
+						<td>{{ _id}}</td>
+						<td>{{ name }} </td>
+						<td>{{ streetAddress }} </td>
+						<td>	<div id="listcompanies">
+								<a href='#' onclick="return false;" id="{{_id}}">Pick me!</a>
+									</div>
 						</td>
-
-
 					</tr>
+					{{/each}}
 				</table>
 			</div>
 	</div>
+
+	{{!-- 							<form name="associateExisting" method="POST" action="/users/{{ user._id }}/associate/{{ company._id }}?new=false">
+								<input type="hidden" name="param1" value="param1Value"> --}}
+								{{!-- <a href="javascript:document.associateExisting.submit()">Pick me!</a> --}}
 
 	<div class="row">
 			<div class="well">
 				<h3><span class="fa fa-user"></span>Or, Create a New Business</h3>
 				<div class="well">
-					<form name="associateNew" method="POST" action="/users/{{ user._id }}/associate/?new=true">
-						<input type="hidden" name="_method" value="put">
+					<form name="associateNew" method="POST" action="/users/{{ user._id }}/associate">
+						{{!-- <input type="hidden" name="_method" value="put"> --}}
 					  Company name:		<input type="text" name="companyname"><br>
 					  Email: 					<input type="text" name="companyemail"><br>
 					  Phone number: 	<input type="text" name="companymobile"><br>
@@ -61,10 +84,6 @@
 						State: 			<input type="text" name="companystate"><br>
 					  <input type="submit" value="Submit">
 					</form>
-					Form stuff here
-					Business Name,
-					email, 
-					address, phone number
 				</div>
 			</div>
 	</div>

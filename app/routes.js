@@ -32,7 +32,7 @@ module.exports = function(app, passport, models, controllers) {
   // Not RESTful API =================
   app.get('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associate(req, res, models) } );
 
-  app.post('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associate(req, res, models) } );
+  app.post('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associatePost(req, res, models) } );
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
