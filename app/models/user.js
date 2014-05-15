@@ -31,17 +31,6 @@ var userSchema = mongoose.Schema({
     },
     admin            : {  isAdmin : Boolean },
     company          : { type: Number, ref: 'Company'}
-    // local            : {   // no more local
-    //     email           : String,
-    //     password        : String,
-    //     salt            : String
-    // },
-    // google           : {
-    //     id              : String,
-    //     token           : String,
-    //     email           : String,
-    //     name            : String
-    // },
 });
 
 // autoIncrement the primary key
@@ -56,23 +45,6 @@ userSchema.methods.generateHash = function(password) {
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
-};
-
-// validation... should this go in config/passport.js or in the model?
-function emailValidation(email, next, err) {
-    if ( email == /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/ ) {
-        next();
-    } else {
-        throw err;
-    };
-};
-
-function phoneValidation(phone, next, err) {
-    if ( phone == /^[0-9]+$/ /*regex for phone number*/ ) {
-        next();
-    } else {
-        throw err;
-    };
 };
 
 // create the model for users and expose it to our app

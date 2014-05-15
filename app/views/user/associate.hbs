@@ -10,26 +10,7 @@
 	</style>
 	<script src="/public/javascript/sorttable.js"></script>
 	<script src="/public/javascript/jquery.js"></script>
-
-	<script>
-		$('#listcompanies').on('click', function(event) {
-			event.preventDefault();
-			console.log('in jquery');
- 			var id = event.srcElement.attr('id');
- 			var cName = event.srcElement.attr('')
-		  $.ajax({
-		    type: "POST",
-		    timeout: 50000,
-		    url: "/users/{{user._id}}/associate/" + id,
-		      data: {"name":"bernhard","phone":"22341234" },
-		    success: function (data) {
-		      console.log(JSON.stringify(data))
-		      return true;
-		    }
-		  });
-		});
- </script>
-
+	<script src="/public/javascript/users.js"></script>
 </head>
 <body>
 <div class="container">
@@ -66,20 +47,16 @@
 			</div>
 	</div>
 
-	{{!-- 							<form name="associateExisting" method="POST" action="/users/{{ user._id }}/associate/{{ company._id }}?new=false">
-								<input type="hidden" name="param1" value="param1Value"> --}}
-								{{!-- <a href="javascript:document.associateExisting.submit()">Pick me!</a> --}}
-
 	<div class="row">
 			<div class="well">
 				<h3><span class="fa fa-user"></span>Or, Create a New Business</h3>
 				<div class="well">
-					<form name="associateNew" method="POST" action="/users/{{ user._id }}/associate">
-						{{!-- <input type="hidden" name="_method" value="put"> --}}
-					  Company name:		<input type="text" name="companyname"><br>
-					  Email: 					<input type="text" name="companyemail"><br>
-					  Phone number: 	<input type="text" name="companymobile"><br>
-					  Street address: <input type="text" name="companystreet"><br>
+					<form name="associateNew" method="POST" action="/companies">
+						<input type='hidden' name="userid" value='{{user._id}}'>
+					  Company name:		<input type="text" id="companyname" name="companyname"><br>
+					  Email: 					<input type="text" id="companyemail" name="companyemail"><br>
+					  Phone number: 	<input type="text" id="companymobile" name="companymobile"><br>
+					  Street address: <input type="text" id="companystreet" name="companystreet"><br>
 						City: 			<input type="text" name="companycity"><br>
 						State: 			<input type="text" name="companystate"><br>
 					  <input type="submit" value="Submit">

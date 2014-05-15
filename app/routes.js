@@ -32,7 +32,21 @@ module.exports = function(app, passport, models, controllers) {
   // Not RESTful API =================
   app.get('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associate(req, res, models) } );
 
-  app.post('/users/:id/associate', isLoggedIn, function(req, res) { controllers.users.associatePost(req, res, models) } );
+// =============================================================================
+// COMPANIES ====================================================================
+// =============================================================================
+  // RESTful API ======================
+  app.get('/companies', function(req, res) { controllers.companies.index(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
+
+  app.get('/companies/new', function(req, res) { controllers.companies.new(req, res, models) } );
+
+  app.post('/companies',    function(req, res) { controllers.companies.create(req, res, models) } ); // add in the additional fields
+
+  app.get('/companies/:id([0-9]+)', function(req, res) { controllers.companies.show(req, res, models) } );
+
+  app.get('/companies/:id/edit', controllers.companies.edit );
+
+  app.post('/companies/:id([0-9]+)', function(req, res) { controllers.companies.update(req, res, models) } );
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
