@@ -16,7 +16,7 @@
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
+		<h1><span class="fa fa-anchor"></span>Choose a business</h1>
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
 
@@ -24,6 +24,7 @@
 			<!-- PROFILE INFORMATION -->
 			<div class="well">
 				<h3><span class="fa fa-user"></span>Info</h3>
+				<div id="listcompanies">
 				<table border="3">
 					<tr>
 						<th>Company ID</th>
@@ -37,13 +38,14 @@
 						<td>{{ _id}}</td>
 						<td>{{ name }} </td>
 						<td>{{ streetAddress }} </td>
-						<td>	<div id="listcompanies">
-								<a href='#' onclick="return false;" id="{{_id}}">Pick me!</a>
-									</div>
+						<td>	
+								<a href='#' id="company{{_id}}">Pick me!</a>
+									
 						</td>
 					</tr>
 					{{/each}}
 				</table>
+				</div>
 			</div>
 	</div>
 

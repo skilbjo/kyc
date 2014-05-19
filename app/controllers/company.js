@@ -1,5 +1,3 @@
-// app/controllers/business.js
-
 // GET, /companies, index
 exports.index = function(req, res, models) {
   models.companies.find( {} , function(err, companies) {
@@ -23,13 +21,15 @@ exports.create = function(req, res, models) {
   newCompany.stateAddress   = req.body.companystate;
   newCompany.save();
 
-  console.log(newCompany._id); // empty
+  console.log(newCompany._id); // empty... 
+  //  how to retrieve and make an association?
 
   // models.users.find({ _id : userId }, function(err, users) {
   //   var user = users[0]; // mongo returns an array of the objects
   //   user.company     = 1;
   //   user.save(); 
   // });
+  res.redirect('/users/' + req.user._id +'?created=true');  
 };
 
 // GET, /companies/:id, show
@@ -40,16 +40,8 @@ exports.show = function (req, res, models) {
       res.send('company with an id of ' + id + ' not found.\n');
       return;
     };
-
     res.json(company);
   });
-
-
-  // models.companies.find({ _id : id }, function(err, company) {
-  //   var company = company[0]; // mongo returns an array of the objects
-  //   console.log(company);
-  //   res.json(company); 
-  // });
 };
 
 // GET, /companies/:id/edit, edit
@@ -59,8 +51,18 @@ exports.edit = function (req, res) {
 
 // PUT, /companies/:id, update
 exports.update = function (req, res, models) {
-  var id = req.params.id;
-  res.send('ability to edit company not yet implemented\n');
+  var userId = req.params.id;
+  var companyId = req.body;
+
+  models.companies.find( { _id : companyId }, function(err, company) {
+    if (!company.length) {
+      res.json('company with an id of '+id+' not found\n');
+      return;
+    }
+    var company = company[0];
+
+    company.users.push(userId);  // right way to do this ?
+  });
 };
 
 // DELETE, /companies/:id, destroy

@@ -1,8 +1,6 @@
-// app/routes.js
-
 module.exports = function(app, passport, models, controllers) {
 
-// normal routes ===============================================================
+// static routes ===============================================================
   app.get('/', controllers.static_pages.index);
 
   app.get('/login', controllers.static_pages.getLogin);
