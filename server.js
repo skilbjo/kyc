@@ -81,6 +81,7 @@ hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
 // models =============
 var models = {
     users       : require('./app/models/user.js'),
+    clients     : require('./app/models/client.js'),
     companies   : require('./app/models/company.js'),
     reviews     : require('./app/models/review.js')
 };
@@ -89,6 +90,7 @@ var models = {
 var controllers = {
     static_pages  : require('./app/controllers/static_pages.js'),
     users         : require('./app/controllers/user.js'),
+    clients       : require('./app/controllers/client.js'),
     companies     : require('./app/controllers/company.js'),
     reviews       : require('./app/controllers/review.js'),
 };

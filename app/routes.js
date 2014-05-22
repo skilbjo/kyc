@@ -3,10 +3,6 @@ module.exports = function(app, passport, models, controllers) {
 // static routes ===============================================================
   app.get('/', controllers.static_pages.index);
 
-  app.get('/login', controllers.static_pages.getLogin);
-  
-  app.post('/login', passport.authenticate('local-login'), function(req, res) { res.redirect('/users/' + req.user._id) });
-
   app.get('/logout', controllers.users.logout);
 
 // =============================================================================
@@ -45,6 +41,22 @@ module.exports = function(app, passport, models, controllers) {
   app.get('/companies/:id/edit', controllers.companies.edit );
 
   app.post('/companies/:id([0-9]+)', function(req, res) { controllers.companies.update(req, res, models) } );
+
+// =============================================================================
+// CLIENTS =====================================================================
+// =============================================================================
+  // RESTful API ======================
+  app.get('/clients', function(req, res) { controllers.clients.index(req, res, models) } ); //index method (path is /users) is made available only for admin users and is in hbs view logic
+
+  app.get('/clients/new', function(req, res) { controllers.clients.new(req, res, models) } );
+
+  app.post('/clients',    function(req, res) { controllers.clients.create(req, res, models) } ); // add in the additional fields
+
+  app.get('/clients/:id([0-9]+)', function(req, res) { controllers.clients.show(req, res, models) } );
+
+  app.get('/clients/:id/edit', controllers.clients.edit );
+
+  app.post('/clients/:id([0-9]+)', function(req, res) { controllers.clients.update(req, res, models) } );
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
