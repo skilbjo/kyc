@@ -42,6 +42,7 @@ app.set('views', __dirname + '/app/views');
 
 // register handlebars helpers =================================================
 hbs.handlebars === require('handlebars');
+hbs.registerPartials(__dirname + '/app/views/templates');
 hbs.registerHelper('compare', function (lvalue, operator, rvalue, options) {
     var operators, result;
     
@@ -102,7 +103,4 @@ require('./config/passport')(passport); // pass passport for configuration
 app.listen(app.get('port'), function(){
   console.log('The magic happens on port ' + app.get('port'));
 });
-
-
-
 

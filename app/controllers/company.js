@@ -12,6 +12,8 @@ exports.new = function(req, res, models) {
 
 // POST, /companies, create
 exports.create = function(req, res, models) {
+  var userId = req.params.id;
+
   var newCompany            = new models.companies;
   newCompany.name           = req.body.companyname;
   newCompany.email          = req.body.companyemail;
@@ -21,14 +23,14 @@ exports.create = function(req, res, models) {
   newCompany.stateAddress   = req.body.companystate;
   newCompany.save();
 
-  console.log(newCompany._id); // empty... 
-  //  how to retrieve and make an association?
+  console.log(newCompany._id); //  how to retrieve and make an association?
 
-  // models.users.find({ _id : userId }, function(err, users) {
-  //   var user = users[0]; // mongo returns an array of the objects
-  //   user.company     = 1;
-  //   user.save(); 
-  // });
+  models.users.find({ _id : userId }, function(err, users) {
+    var user = users[0];
+    user.company.push(1); // how to set as Id of new company ?
+    user.save(); 
+  });
+
   res.redirect('/users/' + req.user._id +'?created=true');  
 };
 
