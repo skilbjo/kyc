@@ -14,7 +14,7 @@ exports.new = function(req, res, models) {
 exports.create = function(req, res, models) {
   var userId = req.params.id;
 
-  var newCompany            = new models.companies;
+  var newCompany            = new models.companies();
   newCompany.name           = req.body.companyname;
   newCompany.email          = req.body.companyemail;
   newCompany.phoneNumber    = req.body.companymobile;

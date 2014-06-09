@@ -15,7 +15,7 @@ var
     bodyParser      = require('body-parser'),
     hbs  	        = require('hbs'),
     passport        = require('passport'),
-    configDB        = require('./config/database.js')
+    configDB        = require('./config/database.js'),
     mongoose        = require('mongoose'),
     connection      = mongoose.connect(configDB.url),
     autoIncrement   = require('mongoose-auto-increment'),

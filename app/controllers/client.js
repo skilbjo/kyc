@@ -12,7 +12,7 @@ exports.new = function(req, res, models) {
 
 // POST, /clients, create
 exports.create = function(req, res, models) {
-  var newclient            = new models.clients;
+  var newclient            = new models.clients();
   newclient.name           = req.body.clientname;
   newclient.email          = req.body.clientemail;
   newclient.phoneNumber    = req.body.clientmobile;
@@ -39,7 +39,7 @@ exports.show = function (req, res, models) {
     if (!client.length) {
       res.send('client with an id of ' + id + ' not found.\n');
       return;
-    };
+    }
     res.json(client);
   });
 };
