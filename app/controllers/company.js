@@ -26,6 +26,10 @@ exports.create = function(req, res, models) {
   console.log(newCompany._id); //  how to retrieve and make an association?
 
   models.users.find({ _id : userId }, function(err, users) {
+    if (!users.length) {
+      res.send('user not found.\n');
+      return;
+    };
     var user = users[0];
     user.company.push(1); // how to set as Id of new company ?
     user.save(); 

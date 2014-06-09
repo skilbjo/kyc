@@ -9,6 +9,12 @@
 
 	<div class="row">
 
+		<!-- Dev INFORMATION -->
+			<div class="well">
+				<h3><span class="fa fa-user"></span>Dev Links</h3>
+				<a href='/users/{{ user._id }}/associate'>Edit</a></td>
+			</div>
+
 		<!-- ADMIN INFORMATION -->
 		{{#compare user.admin.isAdmin "==" true }} 
 
@@ -41,11 +47,7 @@
 			</div>
 		{{/compare}}
 
-			<!-- Dev INFORMATION -->
-			<div class="well">
-				<h3><span class="fa fa-user"></span>Dev Links</h3>
-				<a href='/users/{{ user._id }}/associate'>Edit</a></td>
-			</div>
+
 
 			<!-- PROFILE INFORMATION -->
 			<div class="well">
