@@ -7,8 +7,8 @@ $(document).ready(function() {
       type: 'POST',
       timeout: 3000,
       data: { 'company': companyId,
-              'user'   :'0' },
-      error: alert('didnt work out so well...');
+              'user'   :'1' },
+      error: alert('didnt work out so well...')
     })
   });
 });

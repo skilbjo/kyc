@@ -23,6 +23,7 @@ exports.create = function(req, res, models) {
   newCompany.stateAddress   = req.body.companystate;
   newCompany.save();
 
+  // --!-- need help here
   console.log(newCompany._id); //  how to retrieve and make an association?
 
   models.users.find({ _id : userId }, function(err, users) {
@@ -61,13 +62,22 @@ exports.update = function (req, res, models) {
   var companyId = req.body;
 
   models.companies.find( { _id : companyId }, function(err, company) {
+    
     if (!company.length) {
       res.json('company with an id of '+id+' not found\n');
       return;
     }
+
+    console.log('stuff');
+
     var company = company[0];
 
+    console.log(company);
+
+    // --!-- need help here
+    // TypeError: Cannot read property 'length' of undefined
     company.users.push(userId);  // right way to do this ?
+    res.json('created');
   });
 };
 
